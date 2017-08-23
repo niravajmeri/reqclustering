@@ -1,0 +1,9 @@
+Room is empty,There is no movement in the room during 5 minutes,Light should be faded off
+Room is not empty,There is movement in the room ,Lights should not be faded off
+Smart home lights detect motion,I enter room and begin to sift through things in my closet.,Smart home turn on
+"Smart lights detects motion, but under threshold to activate lighting.",I briefly enter room and grab something off of my desk.  I am in the room for less than three seconds.,Lighting stays off.
+Smart lights detect it is late and after the user's pre-configured bed time.  ,Home owner is in bed and watching TV.  It is after 10 PM.,Smart light shifts slightly red to help encourage sleep. (Similar to PC program f.lux)
+It is daytime.,I walk up to my house.,The lights should not turn on.
+It is night time and there is no light source.,My friend walks up to my house.,The lights should turn on.
+I am in the room for a period of time long enough for the house to turn the lights on.,I walk into the kitchen and look for a snack in the cabinets.,The lights turn on to help me look for a snack.
+That room has a setting for television lighting.,Television turns on.,The lights lower to the desired level.

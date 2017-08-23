@@ -1,0 +1,9 @@
+Sound or movement does not meet a minimum threshold.,A pet is present or other ambient sound or movement occurs.,Lights automatically fade.
+IR motion detection is specifically masked to only detect motion at a minimum height.,Pet walks into room.,Light does not automatically turn on.
+IR motion detection is specifically masked/directed to detect motion in nearby/vulnerable areas.,Car passes by on nearby road.,Lighting is not automatically turned on.
+"Television activation is detected by smarthub through remote sensor, perhaps ZigBee detection of current drop from power receptacle.",Television is turned on.,Lighting is dimmed in media viewing room.
+soft sound just barely meets the threshold,i walk through the house late at night for a snack. i would like a little light. i am walking softly in slippers,the lights come on but they are dim. 
+the light sound should not turn on the lights,a small cat is running through my year,the lights stay off
+The sensors should be able to sense how much natural light is in the room.,I walk into a room during daylight,Lights should not turn on if room is already brightly lit.
+There is a time setting for movements late at night or early in the morning to change the levels of light,It's night time and I need to go to the bathroom or kitchen,The lights should only come on dim during bedtime hours.
+A sensor near the door to recognize that it is someone from inside leaving the house. ,I go out to walk the dog.,The light should stay on until it senses that I have come back in.

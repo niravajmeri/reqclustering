@@ -1,0 +1,10 @@
+The room is configured to respond after a preset time following no movement or noise.,I leave the room with the lights on.,The lights in the room should turn off to save energy.,
+The lights in the room are not on, it is dark inside.,I open the door and walk into a dark room.,The smart home should respond to my presence and automatically turn the light on.
+The lights are configured to respond to movement, it is night time.,I move outside around the house.,The lights should turn on as a security measure.
+The room lights are at their full brightness, we are watching TV together.,I enter a room with several people and we watch TV together.,The room should respond to the activity in the room and dim the lights for comfort.
+"I'm not talking, but I am moving every once and awhile. It is late afternoon.","I am sitting on my couch, watching TV. ",The lights should stay on.,
+"The lighting was optimized for watching TV, with the lights dimmed. I'm now ready to do some work.","I turn off the TV, and sit at my desk. I turn on my computer.",The lights are raised to a level that allows better visibility.,
+"We turn the TV off. We put on some music, and start talking.","I'm in the home with a few friends, and we are having a little party.","The lighting in the room switches to something more colorful, and possibly alters the hue slightly, to the beat of the music.",
+"Although my pet is moving, the motion detector is set for a certain height requirement.",My dog or cat has access to my home day and night. ,The lights stay off.,
+"Certain lights are optimized for reading near the couch, while the rest are dimmed or off.",I'm sitting on the couch reading a book.,Only the lights above the couch are on, the others are dimmed.
+Set the smart house so that anything meeting a certain height requirement does not turn the automatic lights on.,Pets like dogs or cats have free reign outside and can set off the motion detector.,Lights should stay off if a dog or cat walks by.,

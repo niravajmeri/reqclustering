@@ -1,0 +1,21 @@
+no movement for half an hour,movement,turn lights off
+someone talking or opening a door or making other sounds,someone enters the room,lights automaticly turn on
+a person is walking into the room,pressure on floor,lights turn on
+sensors indicate a person has moved out of the room and no one is left inside,no movement or person leaves room,lights turn off
+a person or animals body heat is detected,heat sensors,a spotlight is pointed at the source of heat
+a drone is heard roaming into the property,sound,a spotlight directs towards the sound
+a movie has been selected and is starting,watching television,lights are dimmed
+someone sits at a workstation  to work on a project,sitting at a desk or workstation,lights are brightened so that the person has enough light to focus on the work at hand
+The movement is not from an authorized person.,"A thief or pet, moves in a room.","Lights do not turn on, and lights still fade at preconfigured time from movement of authorized movement."
+The thief and/or pet is unauthorized.,A thief or pet goes into a room.,Lights will not turn on.
+Non human movement.,Insects or animals move around outside.,Lights should not turn on.
+"Power is still on, but home owner and authorized guest(s) want a candle lit experience.",Candles are lit.,Light's turn off as preconfigured number of candles become lit.
+My bedroom is now empty and has been for the last ten minutes.,I left my bedroom ten minutes ago and no one else is inside it.,The smart home should fade the lights in the room.
+"If I am still in the room, the lights should not turn off, even if I am still and quiet.",I am reading a book in my bedroom. There is nothing creating noise.,"The smart home should be able to detect that there is still a person in the room, whether by heat sensing technology or other, and should keep the lights on even if there is a lack of noise or movement."
+A person is in the room but is not moving or making noise.,I am sleeping in my bedroom.,"If I am sleeping, no changes should be made by the smart home to the settings I last made to the lighting."
+My dog is not a person and should not be authorized to change lighting.,My dog walks into the bedroom while I am sleeping.,An animal entering the room should not stimulate the system to turn on the lights.
+A person walking into a room.,My  5 year old daughter walks into our bedroom.,"A person entering a room, even a small one, should trigger the system to turn on the lights."
+Movement outside the home from small animals should not trigger the lights.,A cat runs across the lawn.,The lights will not turn on for every animal that moves near the house.
+Movement outside of the house.,I open my car door in the driveway.,The driveway lights should turn on with this type of movement.
+Lighting needs to be increased for reading.,I am reading a book.,The lights should be as high as possible.
+"The lights should be turned up when someone is in the kitchen, including the light over the stove.",I am cooking in the kitchen.,"The lights in the kitchen should be turned up as bright as possible, while the lights in the surrounding areas (dining room, living room) should be turned down so long as there is no movement in them."
