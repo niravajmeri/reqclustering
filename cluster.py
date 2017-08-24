@@ -1,8 +1,11 @@
 from nltk.stem.porter import *
+from nltk.corpus import wordnet as wn
+from nltk.stem.wordnet import WordNetLemmatizer
 from nltk import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from sklearn.metrics import adjusted_rand_score
+from gensim.models import Word2Vec
 
 
 
@@ -56,7 +59,44 @@ s4 = ' '.join(stemmed_text4)
 s5 = ' '.join(stemmed_text5)
 s6 = ' '.join(stemmed_text6)
 
-print 'Text1 %s' % s1
+print 'Stemmed text1: %s \n\n\n' % s1
+
+lemma = WordNetLemmatizer()
+
+lemma_text1 = [lemma.lemmatize(i, pos="n") for i in word_tokenize(data1)]
+lemma_text2 = [lemma.lemmatize(i) for i in word_tokenize(data2)]
+lemma_text3 = [lemma.lemmatize(i) for i in word_tokenize(data3)]
+lemma_text4 = [lemma.lemmatize(i) for i in word_tokenize(data4)]
+lemma_text5 = [lemma.lemmatize(i) for i in word_tokenize(data5)]
+lemma_text6 = [lemma.lemmatize(i) for i in word_tokenize(data6)]
+
+ls1 = ' '. join(lemma_text1)
+ls2 = ' '. join(lemma_text2)
+ls3 = ' '. join(lemma_text3)
+ls4 = ' '. join(lemma_text4)
+ls5 = ' '. join(lemma_text5)
+ls6 = ' '. join(lemma_text6)
+
+print 'Lemma text1: %s \n\n\n' % ls1
+
+with open("data/ls1.txt", 'w') as f:
+  f.write(ls1)
+
+with open("data/ls2.txt", 'w') as f:
+  f.write(ls2)
+
+with open("data/ls3.txt", 'w') as f:
+  f.write(ls3)
+
+with open("data/ls4.txt", 'w') as f:
+  f.write(ls4)
+
+with open("data/ls5.txt", 'w') as f:
+  f.write(ls5)
+
+with open("data/ls6.txt", 'w') as f:
+  f.write(ls6)
+
 
 #print 'Text1 %s' % string.join(stemmed_text1, " ")
 #print 'Text2 %s' % stemmed_text2
@@ -70,9 +110,11 @@ documents = [data1,data2,data3,data4,data5,data6]
 
 stemmed_docs = [s1,s2,s3,s4,s5,s6]
 
+lemmatized_docs = [ls1,ls2,ls3,ls4,ls5,ls6]
+
 vectorizer = TfidfVectorizer(stop_words='english')
-X = vectorizer.fit_transform(stemmed_docs)
-true_k = 5
+X = vectorizer.fit_transform(lemmatized_docs)
+true_k = 2
 model = KMeans(n_clusters=true_k, init='k-means++', max_iter=100, n_init=1)
 model.fit(X)
 print("Top terms per cluster:")
