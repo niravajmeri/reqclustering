@@ -114,7 +114,7 @@ lemmatized_docs = [ls1,ls2,ls3,ls4,ls5,ls6]
 
 vectorizer = TfidfVectorizer(stop_words='english')
 X = vectorizer.fit_transform(lemmatized_docs)
-true_k = 2
+true_k = 6
 model = KMeans(n_clusters=true_k, init='k-means++', max_iter=100, n_init=1)
 model.fit(X)
 print("Top terms per cluster:")

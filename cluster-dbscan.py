@@ -1,3 +1,5 @@
+import gensim
+import sys
 from nltk.stem.porter import *
 from nltk.corpus import wordnet as wn
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -16,7 +18,7 @@ from sklearn import metrics
 from sklearn.datasets.samples_generator import make_blobs
 from sklearn.preprocessing import StandardScaler
 
-google = gensim.models.word2vec.Word2Vec.load_word2vec_format('/home/word2vec-model/GoogleNews-vectors-negative300.bin', binary=True)
+google = gensim.models.KeyedVectors.load_word2vec_format('~/word2vec-model/GoogleNews-vectors-negative300.bin', binary=True)
 
 
 with open('data/requirements.txt', 'r') as myfile1:
