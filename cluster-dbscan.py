@@ -7,6 +7,14 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import adjusted_rand_score
 from gensim.models import Word2Vec
 
+from pprint import pprint
+import numpy as np
+import collections
+
+from sklearn.cluster import DBSCAN
+from sklearn import metrics
+from sklearn.datasets.samples_generator import make_blobs
+from sklearn.preprocessing import StandardScaler
 
 
 with open('data/requirements.txt', 'r') as myfile1:
