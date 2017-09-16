@@ -1,22 +1,25 @@
 import gensim
 import sys
+import numpy as np
+import collections
+
 from nltk.stem.porter import *
 from nltk.corpus import wordnet as wn
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk import word_tokenize
+from nltk.corpus import stopwords
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from sklearn.metrics import adjusted_rand_score
-from gensim.models import Word2Vec
-
-from pprint import pprint
-import numpy as np
-import collections
-
 from sklearn.cluster import DBSCAN
 from sklearn import metrics
 from sklearn.datasets.samples_generator import make_blobs
 from sklearn.preprocessing import StandardScaler
+
+from gensim.models import Word2Vec
+
+from pprint import pprint
 
 google = gensim.models.KeyedVectors.load_word2vec_format('~/word2vec-model/GoogleNews-vectors-negative300.bin', binary=True)
 
@@ -35,6 +38,10 @@ s1 = ' '.join(stemmed_text1)
 lemma = WordNetLemmatizer()
 
 lemma_text = [lemma.lemmatize(i, pos="n") for i in word_tokenize(data1)]
+
+# Remove stopwords
+stops = set(stopwords.words("english"))
+lemma_filtered = [word for word in lemma_text if word not in stops]
 
 ls1 = ' '. join(lemma_text)
 
@@ -56,7 +63,7 @@ lemmatized_docs = [ls1]
 
 seen = set()
 result = []
-for item in lemma_text:
+for item in lemma_filtered:
     if item not in seen:
         seen.add(item)
         result.append(item)
