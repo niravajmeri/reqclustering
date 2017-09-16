@@ -102,7 +102,7 @@ new_vectors = StandardScaler().fit_transform(vectors)
 
 # Try out various eps to see distribution of clusters
 # Adjust eps bounds and step size
-for eps in np.arange(13,14.5,0.1):
+for eps in np.arange(15.5,17,0.1):
   print 'Eps: '
   print eps
   new_db = DBSCAN(eps=eps, min_samples=10).fit(new_vectors)
@@ -117,7 +117,7 @@ for eps in np.arange(13,14.5,0.1):
 
 
 # Once you found a decent eps, use it here
-new_db = DBSCAN(eps=13.9, min_samples=100).fit(new_vectors)
+new_db = DBSCAN(eps=16.5, min_samples=25).fit(new_vectors)
 labels = new_db.labels_
 counter=collections.Counter(labels)
 
