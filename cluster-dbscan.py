@@ -30,7 +30,7 @@ stemmed_text1 = [stemmer.stem(i) for i in word_tokenize(data1)]
 
 s1 = ' '.join(stemmed_text1)
 
-print 'Stemmed text1: %s \n\n\n' % s1
+#print 'Stemmed text1: %s \n\n\n' % s1
 
 lemma = WordNetLemmatizer()
 
@@ -38,7 +38,7 @@ lemma_text = [lemma.lemmatize(i, pos="n") for i in word_tokenize(data1)]
 
 ls1 = ' '. join(lemma_text)
 
-print 'Lemma text1: %s \n\n\n' % ls1
+#print 'Lemma text1: %s \n\n\n' % ls1
 
 with open("data/ls1.txt", 'w') as f:
   f.write(ls1)
@@ -90,7 +90,7 @@ for keyword in result:
 
 # Standaridze
 new_vectors = StandardScaler().fit_transform(vectors)
-
+#new_vectors = TfidfVectorizer(stop_words='english').fit_transform(vectors)
 
 
 # Try out various eps to see distribution of clusters
@@ -103,13 +103,18 @@ for eps in np.arange(13,14.5,0.1):
   counter=collections.Counter(labels)
   print counter
   print len(counter)
+  
+  n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
+  print('Estimated number of clusters: %d' % n_clusters_)
 
 
 
 # Once you found a decent eps, use it here
-new_db = DBSCAN(eps=13.9, min_samples=10).fit(new_vectors)
+new_db = DBSCAN(eps=13.9, min_samples=100).fit(new_vectors)
 labels = new_db.labels_
 counter=collections.Counter(labels)
+
+
 
 clusters = {}
 for key, value in counter.iteritems():
@@ -119,4 +124,10 @@ for key, value in counter.iteritems():
 for idx, val in enumerate(labels):
   clusters[val].append(hits[idx])
 
-pprint(clusters)
+#pprint(clusters)
+
+#f = open('out.txt','w')
+#pprint >>f, clusters
+
+with open('out.txt', 'wt') as out: 
+  pprint(clusters, stream=out)
