@@ -102,8 +102,8 @@ new_vectors = StandardScaler().fit_transform(vectors)
 
 # Try out various eps to see distribution of clusters
 # Adjust eps bounds and step size
-'''
-for eps in np.arange(15.5,17,0.1):
+
+for eps in np.arange(14.5,15.5,0.1):
   print 'Eps: '
   print eps
   new_db = DBSCAN(eps=eps, min_samples=10).fit(new_vectors)
@@ -114,11 +114,13 @@ for eps in np.arange(15.5,17,0.1):
   
   n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
   print('Estimated number of clusters: %d' % n_clusters_)
-'''
+
 
 
 # Once you found a decent eps, use it here
-new_db = DBSCAN(eps=16.5, min_samples=25).fit(new_vectors)
+new_db = DBSCAN(eps=14.75, min_samples=100).fit(new_vectors)
+core_samples_mask = np.zeros_like(new_db.labels_, dtype=bool)
+core_samples_mask[new_db.core_sample_indices_] = True
 labels = new_db.labels_
 counter=collections.Counter(labels)
 
@@ -137,15 +139,15 @@ with open('out-dbscan+plot.txt', 'wt') as out:
   pprint(clusters, stream=out)
 
 print('Estimated number of clusters: %d' % n_clusters_)
-print("Homogeneity: %0.3f" % metrics.homogeneity_score(labels_true, labels))
-print("Completeness: %0.3f" % metrics.completeness_score(labels_true, labels))
-print("V-measure: %0.3f" % metrics.v_measure_score(labels_true, labels))
-print("Adjusted Rand Index: %0.3f"
-      % metrics.adjusted_rand_score(labels_true, labels))
-print("Adjusted Mutual Information: %0.3f"
-      % metrics.adjusted_mutual_info_score(labels_true, labels))
+#print("Homogeneity: %0.3f" % metrics.homogeneity_score(labels_true, labels))
+#print("Completeness: %0.3f" % metrics.completeness_score(labels_true, labels))
+#print("V-measure: %0.3f" % metrics.v_measure_score(labels_true, labels))
+#print("Adjusted Rand Index: %0.3f"
+#      % metrics.adjusted_rand_score(labels_true, labels))
+#print("Adjusted Mutual Information: %0.3f"
+#      % metrics.adjusted_mutual_info_score(labels_true, labels))
 print("Silhouette Coefficient: %0.3f"
-      % metrics.silhouette_score(X, labels))
+      % metrics.silhouette_score(new_vectors, labels))
 
 ##############################################################################
 # Plot result
@@ -161,11 +163,11 @@ for k, col in zip(unique_labels, colors):
 
     class_member_mask = (labels == k)
 
-    xy = X[class_member_mask & core_samples_mask]
+    xy = new_vectors[class_member_mask & core_samples_mask]
     plt.plot(xy[:, 0], xy[:, 1], 'o', markerfacecolor=col,
              markeredgecolor='k', markersize=14)
 
-    xy = X[class_member_mask & ~core_samples_mask]
+    xy = new_vectors[class_member_mask & ~core_samples_mask]
     plt.plot(xy[:, 0], xy[:, 1], 'o', markerfacecolor=col,
              markeredgecolor='k', markersize=6)
 
