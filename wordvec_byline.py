@@ -45,6 +45,8 @@ for line in lines:
       continue
     if all(char in string.punctuation for char in word):
       continue
+    if len(word) < 3:
+      continue
  
     try:  
       stem_word = stemmer.stem(word)
@@ -73,9 +75,9 @@ for line in lines:
   outtext = ""
   #outtext = "\"",line,"\",\""," ".join(stem_line),"\",\""," ".join(lemma_line),"\"\n"
   outfile.write(line)
-  outfile.write(",")
+  outfile.write("||")
   outfile.write(" ".join(stem_line))
-  outfile.write(",")
+  outfile.write("||")
   outfile.write(" ".join(lemma_line))
   outfile.write("\n")
 
