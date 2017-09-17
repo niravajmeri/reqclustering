@@ -28,8 +28,8 @@ stem_filtered = []
 vectors = []
 seen = set()
 
-outfile = open("wordvec_stem+lemma_byline.txt", "a")
-vectorfile = open("wordvec_vectors","a")
+outfile = open("wordvec_stem+lemma_byline.csv", "a")
+vectorfile = open("wordvec_vectors.csv","a")
 for line in lines:
   #dataline = line.strip('\n')
   print line
@@ -61,7 +61,10 @@ for line in lines:
         #vectortext = lemma_word + "," + model[lemma_word] + "\n"
         vectorfile.write(lemma_word)
         vectorfile.write(",")
-        vectorfile.write(model[lemma_word])
+        print model[lemma_word]
+        vector_string = ["%.6f" % x for x in model[lemma_word]]
+        print vector_string
+        vectorfile.write(",".join(vector_string))
         vectorfile.write("\n")
     except KeyError:
       print word, " not in vocabulary"
