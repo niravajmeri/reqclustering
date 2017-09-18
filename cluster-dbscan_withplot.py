@@ -192,4 +192,4 @@ for k, col in zip(unique_labels, colors):
     markeredgecolor='k', markersize=6)
 
 plt.title('Estimated number of clusters: %d' % n_clusters_)
-plt.savefig('out-cluster-dbscan-eps16.5-min.png')
+plt.savefig('out-cluster-dbscan-eps16.5-min3.png')
