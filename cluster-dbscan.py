@@ -1,3 +1,4 @@
+import string
 import gensim
 import sys
 import numpy as np
@@ -24,50 +25,59 @@ from pprint import pprint
 google = gensim.models.KeyedVectors.load_word2vec_format('~/word2vec-model/GoogleNews-vectors-negative300.bin', binary=True)
 
 
-with open('data/requirements.txt', 'r') as myfile1:
-    data1=myfile1.read().replace('\n', '')
+with open('data/requirements.txt', 'r') as myfile:
+    data=myfile.read().replace('\n', ' ')
 
-stemmer = PorterStemmer()
-
-stemmed_text1 = [stemmer.stem(i) for i in word_tokenize(data1)]
-
-s1 = ' '.join(stemmed_text1)
-
+#stemmer = PorterStemmer()
+#stemmed_text1 = [stemmer.stem(i) for i in word_tokenize(data1)]
+#s1 = ' '.join(stemmed_text1)
 #print 'Stemmed text1: %s \n\n\n' % s1
 
 lemma = WordNetLemmatizer()
-
-lemma_text = [lemma.lemmatize(i, pos="n") for i in word_tokenize(data1)]
+#lemma_text = [lemma.lemmatize(i, pos="n") for i in word_tokenize(data1)]
 
 # Remove stopwords
 stops = set(stopwords.words("english"))
-lemma_filtered = [word for word in lemma_text if word not in stops]
+#lemma_filtered = [word for word in lemma_text if word not in stops]
 
-ls1 = ' '. join(lemma_text)
+#ls1 = ' '. join(lemma_text)
 
 #print 'Lemma text1: %s \n\n\n' % ls1
 
-with open("data/ls1.txt", 'w') as f:
-  f.write(ls1)
+#with open("data/ls1.txt", 'w') as f:
+#  f.write(ls1)
 
 #print 'Text1 %s' % string.join(stemmed_text1, " ")
 
-documents = [data1]
-
-stemmed_docs = [s1]
-
-lemmatized_docs = [ls1]
+#documents = [data1]
+#stemmed_docs = [s1]
+#lemmatized_docs = [ls1]
 
 #vectorizer = TfidfVectorizer(stop_words='english')
 #X = vectorizer.fit_transform(lemmatized_docs)
 
 seen = set()
 result = []
-for item in lemma_filtered:
-    if item not in seen:
-        seen.add(item)
-        result.append(item)
-
+for word in word_tokenize(data):
+  word = word.lower()
+  word = word.strip()
+  word = word.strip('_')
+  word = word.strip('*')
+  
+  if word in stops:
+    continue
+  if all(char in string.punctuation for char in word):
+    continue
+  if len(word) < 3:
+    continue
+  try:
+    #stem_word = stemmer.stem(word)
+	lemma_word = lemma.lemmatize(word, pos='n')
+	if lemma_word not in seen:
+      seen.add(lemma_word)
+      result.append(lemma_word)
+    except KeyError:
+	  print lemma_word, " not in vocabulary"
 
 fails = []
 hits = []
@@ -102,10 +112,10 @@ new_vectors = StandardScaler().fit_transform(vectors)
 
 # Try out various eps to see distribution of clusters
 # Adjust eps bounds and step size
-for eps in np.arange(15.5,17,0.1):
+for eps in np.arange(1,30,0.3):
   print 'Eps: '
   print eps
-  new_db = DBSCAN(eps=eps, min_samples=10).fit(new_vectors)
+  new_db = DBSCAN(eps=eps, min_samples=100).fit(new_vectors)
   labels = new_db.labels_
   counter=collections.Counter(labels)
   print counter
@@ -117,7 +127,7 @@ for eps in np.arange(15.5,17,0.1):
 
 
 # Once you found a decent eps, use it here
-new_db = DBSCAN(eps=16.5, min_samples=25).fit(new_vectors)
+new_db = DBSCAN(eps=16.5, min_samples=100).fit(new_vectors)
 labels = new_db.labels_
 counter=collections.Counter(labels)
 
@@ -136,5 +146,5 @@ for idx, val in enumerate(labels):
 #f = open('out.txt','w')
 #pprint >>f, clusters
 
-with open('out.txt', 'wt') as out: 
+with open('out-cluster-dbscan.txt', 'wt') as out: 
   pprint(clusters, stream=out)
