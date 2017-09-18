@@ -26,7 +26,7 @@ google = gensim.models.KeyedVectors.load_word2vec_format('~/word2vec-model/Googl
 
 
 with open('data/requirements.txt', 'r') as myfile:
-    data=myfile.read().replace('\n', ' ')
+  data=myfile.read().replace('\n', ' ')
 
 #stemmer = PorterStemmer()
 #stemmed_text1 = [stemmer.stem(i) for i in word_tokenize(data1)]
@@ -72,12 +72,12 @@ for word in word_tokenize(data):
     continue
   try:
     #stem_word = stemmer.stem(word)
-	lemma_word = lemma.lemmatize(word, pos='n')
-	if lemma_word not in seen:
+    lemma_word = lemma.lemmatize(word, pos='n')
+    if lemma_word not in seen:
       seen.add(lemma_word)
       result.append(lemma_word)
-    except KeyError:
-	  print lemma_word, " not in vocabulary"
+  except KeyError:
+    print lemma_word, " not in vocabulary"
 
 fails = []
 hits = []
@@ -112,26 +112,29 @@ new_vectors = StandardScaler().fit_transform(vectors)
 
 # Try out various eps to see distribution of clusters
 # Adjust eps bounds and step size
-for eps in np.arange(1,30,0.3):
+
+'''
+for eps in np.arange(16.5,17.5,0.1):
   print 'Eps: '
   print eps
-  new_db = DBSCAN(eps=eps, min_samples=100).fit(new_vectors)
-  labels = new_db.labels_
-  counter=collections.Counter(labels)
-  print counter
-  print len(counter)
+  for min in np.arange(2,4,1):
+    print 'Min samples: '
+    print min
+    new_db = DBSCAN(eps=eps, min_samples=min).fit(new_vectors)
+    labels = new_db.labels_
+    counter=collections.Counter(labels)
+    print counter
+    print len(counter)
   
-  n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
-  print('Estimated number of clusters: %d' % n_clusters_)
-
+    n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
+    print('Estimated number of clusters: %d' % n_clusters_)
+'''
 
 
 # Once you found a decent eps, use it here
-new_db = DBSCAN(eps=16.5, min_samples=100).fit(new_vectors)
+new_db = DBSCAN(eps=16.5, min_samples=2).fit(new_vectors)
 labels = new_db.labels_
 counter=collections.Counter(labels)
-
-
 
 clusters = {}
 for key, value in counter.iteritems():
@@ -146,5 +149,5 @@ for idx, val in enumerate(labels):
 #f = open('out.txt','w')
 #pprint >>f, clusters
 
-with open('out-cluster-dbscan.txt', 'wt') as out: 
+with open('out-cluster-dbscan-eps16.5-min2.txt', 'wt') as out: 
   pprint(clusters, stream=out)
