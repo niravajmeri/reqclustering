@@ -118,22 +118,25 @@ new_vectors = StandardScaler().fit_transform(vectors)
 # Try out various eps to see distribution of clusters
 # Adjust eps bounds and step size
 
-'''
+
 for eps in np.arange(16.5,17.5,0.1):
   print 'Eps: '
   print eps
-  for min in np.arange(2,4,1):
+  for min in np.arange(2,5,1):
     print 'Min samples: '
     print min
     new_db = DBSCAN(eps=eps, min_samples=min).fit(new_vectors)
     labels = new_db.labels_
     counter=collections.Counter(labels)
-    print counter
-    print len(counter)
+    #print counter
+    #print len(counter)
   
     n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
     print('Estimated number of clusters: %d' % n_clusters_)
-'''
+
+    print("Silhouette Coefficient: %0.3f"
+      % metrics.silhouette_score(new_vectors, labels))
+
 
 
 # Once you found a decent eps, use it here
@@ -177,19 +180,19 @@ unique_labels = set(labels)
 colors = [plt.cm.Spectral(each)
           for each in np.linspace(0, 1, len(unique_labels))]
 for k, col in zip(unique_labels, colors):
-    if k == -1:
-        # Black used for noise.
-        col = [0, 0, 0, 1]
+  if k == -1:
+  # Black used for noise.
+    col = [0, 0, 0, 1]
 
-    class_member_mask = (labels == k)
+  class_member_mask = (labels == k)
 
   xy = new_vectors[class_member_mask & core_samples_mask]
   plt.plot(xy[:, 0], xy[:, 1], 'o', markerfacecolor=tuple(col), 
-    markeredgecolor='k', markersize=14)
+    markeredgecolor='k', markersize=8)
 
   xy = new_vectors[class_member_mask & ~core_samples_mask]
   plt.plot(xy[:, 0], xy[:, 1], 'o', markerfacecolor=tuple(col),
-    markeredgecolor='k', markersize=6)
+    markeredgecolor='k', markersize=1)
 
 plt.title('Estimated number of clusters: %d' % n_clusters_)
 plt.savefig('out-cluster-dbscan-eps16.5-min3.png')
