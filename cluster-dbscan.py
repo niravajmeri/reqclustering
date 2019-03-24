@@ -105,7 +105,7 @@ for keyword in result:
       fails.append(keyword)
 
 
-# Standaridze
+# Standardize
 new_vectors = StandardScaler().fit_transform(vectors)
 #new_vectors = TfidfVectorizer(stop_words='english').fit_transform(vectors)
 
